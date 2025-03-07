@@ -6,7 +6,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className='w-full flex items-center justify-between px-6 py-3 bg-white'>
+    <div className='w-full flex items-center justify-between px-6 md:px-10'>
       {/* Logo */}
       <div className='flex items-center'>
         <img 
@@ -25,7 +25,9 @@ const Navbar = () => {
       </button>
 
       {/* Navigation Links */}
-      <div className={`md:flex items-center space-x-6 gap-6 ${isOpen ? "block" : "hidden"} absolute md:relative top-16 md:top-0 left-0 w-full md:w-auto bg-white md:bg-transparent md:shadow-none shadow-lg md:p-0 p-4`}>
+      <div className={`md:flex items-center space-x-6 gap-6 ${isOpen ? "block" : "hidden"} 
+          absolute md:relative top-16 md:top-0 left-0 w-full md:w-auto bg-white md:bg-transparent 
+          md:shadow-none shadow-lg md:p-0 p-4 px-6 md:px-10`}>
         <Link to="/bill" className="text-lg font-medium hover:underline block md:inline">
           Bill
         </Link>

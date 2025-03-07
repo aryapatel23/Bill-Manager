@@ -12,14 +12,32 @@
   text-align: center;
 }
 
-/* Filters */
-.filters {
+.filters-container {
   display: flex;
-  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  justify-content: space-between; /* Push sort dropdown to the right */
+  align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 15px;
+  padding: 0 10px; /* Padding for small screens */
 }
 
+/* Filters section */
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; /* Wrap on small screens */
+}
+
+/* Sort dropdown styling */
+.sort-dropdown {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  cursor: pointer;
+  min-width: 150px; /* Ensures dropdown doesn't get too small */
+}
 .filters select {
   padding: 8px;
   font-size: 16px;
@@ -132,5 +150,21 @@
   .print-button {
     font-size: 10px;
     padding: 5px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: column;
+    align-items: flex-start; /* Align filters to the left */
+    gap: 15px;
+  }
+
+  .filters {
+    width: 100%; /* Full width filters */
+  }
+
+  .sort-dropdown {
+    align-self: flex-end; /* Keeps sort dropdown to the right */
   }
 }

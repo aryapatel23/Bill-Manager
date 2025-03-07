@@ -63,7 +63,6 @@
 
 // export default BillList;
 
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -72,11 +71,14 @@ import "./Bill.css"; // Import the CSS file
 const BillList = () => {
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   // State for filters
   const [selectedState, setSelectedState] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedTaluka, setSelectedTaluka] = useState("");
+
+  // Sort option state
+  const [sortOrder, setSortOrder] = useState("latest");
 
   const navigate = useNavigate();
 
@@ -104,11 +106,19 @@ const BillList = () => {
     (!selectedTaluka || bill.address.taluka === selectedTaluka)
   );
 
+  // Sorting logic (Latest or Oldest)
+  const sortedBills = [...filteredBills].sort((a, b) => {
+    return sortOrder === "latest"
+      ? new Date(b.date) - new Date(a.date) // Latest first
+      : new Date(a.date) - new Date(b.date); // Oldest first
+  });
+
   return (
     <div className="bill-container">
-      <h2 className="bill-title">Bills</h2>
+    <h2 className="bill-title">Bills</h2>
 
-      {/* Filters */}
+    {/* Filters & Sorting */}
+    <div className="filters-container">
       <div className="filters">
         <select value={selectedState} onChange={(e) => { setSelectedState(e.target.value); setSelectedDistrict(""); setSelectedTaluka(""); }}>
           <option value="">Select State</option>
@@ -132,7 +142,14 @@ const BillList = () => {
         </select>
       </div>
 
-      {loading ? <p className="loading">Loading...</p> : filteredBills.length === 0 ? <p className="no-bills">No bills available.</p> : (
+      {/* Sort Dropdown (aligned to right) */}
+      <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} className="sort-dropdown">
+        <option value="latest">Sort by Latest</option>
+        <option value="oldest">Sort by Oldest</option>
+      </select>
+    </div>
+
+      {loading ? <p className="loading">Loading...</p> : sortedBills.length === 0 ? <p className="no-bills">No bills available.</p> : (
         <div className="bill-table-container">
           <table className="bill-table">
             <thead>
@@ -147,7 +164,7 @@ const BillList = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredBills.map(bill => (
+              {sortedBills.map(bill => (
                 bill.items.map((item, index) => ( 
                   <tr key={`${bill._id}-${index}`} className="bill-row">
                     {index === 0 && (
