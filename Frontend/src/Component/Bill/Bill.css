@@ -1,0 +1,136 @@
+/* Container */
+.bill-container {
+  padding: 16px;
+  font-family: Arial, sans-serif;
+}
+
+/* Title */
+.bill-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.filters select {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 150px; /* Ensures minimum width */
+}
+
+.filters select:disabled {
+  background-color: #f2f2f2;
+  cursor: not-allowed;
+}
+
+/* Loading & No Bills Message */
+.loading,
+.no-bills {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+  color: #555;
+}
+
+/* Table Container */
+.bill-table-container {
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Enables horizontal scrolling on small screens */
+  max-width: 100%;
+}
+
+/* Table Styling */
+.bill-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.bill-header {
+  background-color: #f4f4f4;
+}
+
+.bill-th,
+.bill-td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.bill-th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+/* Button */
+.print-button {
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.print-button:hover {
+  background-color: #0056b3;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+  /* Stack filters vertically */
+  .filters {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .filters select {
+    width: 100%; /* Full width for easier selection */
+  }
+
+  /* Make table scrollable */
+  .bill-table-container {
+    overflow-x: auto;
+  }
+
+  /* Reduce padding & font size */
+  .bill-th,
+  .bill-td {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  /* Adjust button */
+  .print-button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .bill-th,
+  .bill-td {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .print-button {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+}
