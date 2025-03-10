@@ -233,7 +233,7 @@ const BillList = () => {
   const navigate = useNavigate();
 
   // Secure Password (You can store in ENV or backend API)
-  const CORRECT_PASSWORD = "secure123";  
+  const CORRECT_PASSWORD = "avpatel2302";  
 
   useEffect(() => {
     // Check if user already authenticated
