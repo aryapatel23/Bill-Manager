@@ -1,7 +1,55 @@
 /* Container */
+
 .bill-container {
+  max-width: 100%;
   padding: 16px;
   font-family: Arial, sans-serif;
+}
+
+.password-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.password-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 250px;
+  margin-top: 10px;
+}
+
+.submit-button {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.filters-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.sort-container {
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .filters-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 /* Title */
@@ -99,16 +147,15 @@
   padding: 6px 12px;
   font-size: 14px;
   cursor: pointer;
-  background-color: #007bff;
+  background-color: #007bff; /* Blue color */
   color: white;
   border: none;
   border-radius: 5px;
 }
 
 .print-button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; /* Darker blue on hover */
 }
-
 /* ✅ Responsive Design */
 @media (max-width: 768px) {
   /* Stack filters vertically */
