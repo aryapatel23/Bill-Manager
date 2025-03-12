@@ -210,8 +210,6 @@
 
 
 
-
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -219,11 +217,12 @@ import "./Bill.css";
 
 const BillList = () => {
   const [bills, setBills] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState(""); 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState("");
   const [sortOrder, setSortOrder] = useState("latest");
+  const [logoutTimer, setLogoutTimer] = useState(null);
 
   // State for filters
   const [selectedState, setSelectedState] = useState("");
@@ -232,45 +231,80 @@ const BillList = () => {
 
   const navigate = useNavigate();
 
-  // Secure Password (You can store in ENV or backend API)
-  const CORRECT_PASSWORD = "avpatel2302";  
+  // Secure Password (Move this to ENV for better security)
+  const CORRECT_PASSWORD = "avpatel2302"; 
+  const AUTO_LOGOUT_TIME = 30 * 60 * 1000; // 30 minutes in milliseconds 
 
   useEffect(() => {
-    // Check if user already authenticated
     const storedAuth = localStorage.getItem("bill_access");
-    if (storedAuth === "true") {
-      setIsAuthenticated(true);
-      fetchBills();
+    const loginTime = localStorage.getItem("login_time");
+
+    if (storedAuth === "true" && loginTime) {
+      const parsedLoginTime = parseInt(loginTime, 10);
+      if (!isNaN(parsedLoginTime)) {
+        const elapsedTime = Date.now() - parsedLoginTime;
+        if (elapsedTime < AUTO_LOGOUT_TIME) {
+          setIsAuthenticated(true);
+          fetchBills();
+          startAutoLogout(AUTO_LOGOUT_TIME - elapsedTime);
+        } else {
+          handleLogout(); // Auto logout if time is exceeded
+        }
+      } else {
+        handleLogout(); // Reset session if loginTime is invalid
+      }
     }
   }, []);
 
-  const fetchBills = () => {
-    axios.get("https://backend-for-bill-1.onrender.com/bills/all")
-      .then(response => {
-        setBills(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error("Error fetching bills:", error);
-        setLoading(false);
-      });
+  const fetchBills = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("https://backend-for-bill-1.onrender.com/bills/all");
+      setBills(response.data);
+    } catch (error) {
+      console.error("Error fetching bills:", error);
+    } finally {
+      setLoading(false);
+    }
   };
-
+  
   const handleLogin = () => {
-    if (password === CORRECT_PASSWORD) {
+    if (password.trim() === CORRECT_PASSWORD) {
       setIsAuthenticated(true);
-      localStorage.setItem("bill_access", "true"); // Store login state
-      fetchBills(); // Load bills after authentication
+      localStorage.setItem("bill_access", "true");
+      localStorage.setItem("login_time", Date.now().toString()); // Store login time
+      setError("");  
+      fetchBills();
+      startAutoLogout(AUTO_LOGOUT_TIME);
     } else {
       setError("Incorrect password! Please try again.");
+      setTimeout(() => setError(""), 3000);
     }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem("bill_access");
+    localStorage.removeItem("login_time");
+    setBills([]);
+    setPassword("");
+    if (logoutTimer) clearTimeout(logoutTimer);
+  };
+
+  const startAutoLogout = (time) => {
+    if (logoutTimer) clearTimeout(logoutTimer);
+    const timer = setTimeout(() => {
+      alert("Session expired! Logging out...");
+      handleLogout();
+    }, time);
+    setLogoutTimer(timer);
   };
 
   // Sorting bills (latest or oldest)
   const sortedBills = [...bills].sort((a, b) => {
     return sortOrder === "latest"
       ? new Date(b.date) - new Date(a.date)
-      : new Date(b.date) - new Date(a.date);
+      : new Date(a.date) - new Date(b.date);
   });
 
   // Get unique States, Districts, and Talukas
@@ -302,7 +336,10 @@ const BillList = () => {
         </div>
       ) : (
         <>
-          <h2 className="bill-title">Bills</h2>
+          <div className="header">
+            <h2 className="bill-title">Bills</h2>
+            <button onClick={handleLogout} className="logout-button">Logout</button>
+          </div>
 
           {/* Sorting & Filters */}
           <div className="filters-container">
@@ -357,7 +394,7 @@ const BillList = () => {
                   {filteredBills.map(bill => (
                     bill.items.map((item, index) => ( 
                       <tr key={`${bill._id}-${index}`}>
-                        {index === 0 && (
+                        {index === 0 && bill.items.length > 0 && (
                           <td rowSpan={bill.items.length}>{bill.customerName}</td>
                         )}
                         <td>{item.name}</td>

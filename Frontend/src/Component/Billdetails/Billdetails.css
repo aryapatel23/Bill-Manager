@@ -9,6 +9,15 @@
     margin-top: 30px;
   }
   
+  .back-button{
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+  }
+  .back-button:hover{
+    background-color: white;
+    color: black;
+  }
   /* Header Section */
   .header {
     display: flex;
@@ -116,4 +125,10 @@
       display: none; /* Hide print button */
     }
   }
+  @media print {
+    .back-button, .print-button {
+        display: none;
+    }
+}
+
   

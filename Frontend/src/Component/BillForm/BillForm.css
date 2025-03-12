@@ -3,13 +3,13 @@
   /* Container */
   .bill-form-container {
     max-width: 500px;
-    margin: 30px auto;
-    padding: 25px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-  }
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
   
   .bill-form-container:hover {
     box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.15);
@@ -23,6 +23,16 @@
     font-weight: 600;
     color: #333;
   }
+
+  .success-message {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
   
   /* Form Styling */
   .bill-form {

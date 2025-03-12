@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Billdetails.css";  // Import the CSS file
+import "./Billdetails.css"; // Import the CSS file
 
 const Invoice = () => {
     const { billId } = useParams(); // Get billId from the URL
     const [bill, setBill] = useState(null);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate(); // For navigating back
 
     useEffect(() => {
         axios.get(`https://backend-for-bill-1.onrender.com/bills/${billId}`)
@@ -21,7 +22,7 @@ const Invoice = () => {
     }, [billId]);
 
     const handlePrint = () => {
-        window.print(); // Manually trigger print dialog
+        window.print(); // Trigger print dialog
     };
 
     if (loading) return <p>Loading invoice...</p>;
@@ -29,18 +30,18 @@ const Invoice = () => {
 
     return (
         <div className="invoice-container">
+            {/* Back Button (Hidden on Print) */}
+            <button className="back-button" onClick={() => navigate(-1)}>⬅ Back</button>
+
             <div className="header">
-                <img src="https://res.cloudinary.com/dzsvjyg2c/image/upload/v1741258133/amxh4fnusn45rdqzqlco.png" alt="Company Logo" className="logo" />
+                <img src="https://res.cloudinary.com/dzsvjyg2c/image/upload/v1741258133/amxh4fnusn45rdqzqlco.png" 
+                     alt="Company Logo" className="logo" />
                 <p className="company-info">
                     Your Company Name <br />
                     Unjha-Siddhpur Highway <br />
-
                     Brahmanwada- 384 215 <br />
-
-                    Ta. Unjha, Dist. Mehsana,
-
-                    Gujarat,<br />
-                    Phone:  +91(02767) 282047, 282483
+                    Ta. Unjha, Dist. Mehsana, Gujarat,<br />
+                    Phone: +91(02767) 282047, 282483
                 </p>
             </div>
             <hr />
@@ -60,8 +61,8 @@ const Invoice = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {bill.items.map(item => (
-                        <tr key={item.name}>
+                    {bill.items.map((item, index) => (
+                        <tr key={index}>
                             <td>{item.name}</td>
                             <td>{item.quantity}</td>
                             <td>₹{item.price}</td>
@@ -74,7 +75,7 @@ const Invoice = () => {
             <hr />
             <p className="footer">Thank you for your business!</p>
 
-            {/* Print Button */}
+            {/* Print Button (Hidden on Print) */}
             <button className="print-button" onClick={handlePrint}>
                 Print Invoice 🖨️
             </button>

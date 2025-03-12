@@ -6,6 +6,9 @@ import Bill from './Component/Bill/Bill';
 import BillList from './Component/BillList/BillList';
 import Invoice from './Component/Billdetails/Billdetails'; // Import Invoice
 import BillForm from './Component/BillForm/BillForm';
+import Home from './Component/Home/Home';
+import BrowseProducts from './Component/Home/BrowseProducts/BrowseProducts';
+import ProductDetail from './Component/Home/ProductDetail/ProductDetail';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -26,7 +29,9 @@ function App() {
     <Router>
       <Layout>
         <Routes>
-          {/* <Route path="/billlist" element={<BillList />} /> */}
+          <Route path="/" element={<Home />} />
+          <Route path="/browseproducts" element={<BrowseProducts />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/bill" element={<Bill />} />
           <Route path="/invoice/:billId" element={<Invoice />} /> 
           <Route path="/billform" element={<BillForm />} /> 

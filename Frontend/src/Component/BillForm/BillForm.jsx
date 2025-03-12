@@ -6,7 +6,7 @@ const BillForm = () => {
     const [formData, setFormData] = useState({
         customerName: "",
         items: [{ name: "", price: "", quantity: "" }],
-        totalAmount: "",
+        totalAmount: 0,
         date: "",
         address: {
             houseNo: "",
@@ -18,92 +18,116 @@ const BillForm = () => {
         },
     });
 
-    const [error, setError] = useState(null); // State for error messages
+    const [error, setError] = useState(null);
+    const [successMessage, setSuccessMessage] = useState(""); // ✅ Success message state
+
+    // Function to calculate the total amount dynamically
+    const calculateTotalAmount = (items) => {
+        return items.reduce((total, item) => {
+            const price = Number(item.price) || 0;
+            const quantity = Number(item.quantity) || 0;
+            return total + price * quantity;
+        }, 0);
+    };
 
     const handleChange = (e, field, index = null, isAddress = false) => {
         let value = e.target.value;
 
-        // ✅ Convert price & quantity to numbers
-        if (field === "price" || field === "quantity" || field === "totalAmount") {
-            value = Number(value);
-            if (isNaN(value) || value <= 0) value = 1; // Ensure valid numbers
+        if (field === "price" || field === "quantity") {
+            value = value === "" ? "" : Number(value);
         }
 
         if (isAddress) {
-            setFormData({
-                ...formData,
-                address: {
-                    ...formData.address,
-                    [field]: value
-                }
-            });
-        }
-         else if (index !== null) {
-            // ✅ Handling items (array)
+            setFormData((prev) => ({
+                ...prev,
+                address: { ...prev.address, [field]: value },
+            }));
+        } else if (index !== null) {
             const updatedItems = [...formData.items];
             updatedItems[index][field] = value;
-            setFormData({ ...formData, items: updatedItems });
+            setFormData((prev) => ({
+                ...prev,
+                items: updatedItems,
+                totalAmount: calculateTotalAmount(updatedItems),
+            }));
         } else {
-            // ✅ Handling normal fields
-            setFormData({ ...formData, [field]: value });
+            setFormData((prev) => ({ ...prev, [field]: value }));
         }
     };
 
-
-
-
-
     const addItem = () => {
-        setFormData((prevForm) => ({
-          ...prevForm,
-          items: [...prevForm.items, { name: "", price: 1, quantity: 1 }], // ✅ Use numbers, not strings
-        }));
-      };
-      
-
-    const removeItem = (index) => {
         setFormData((prev) => ({
             ...prev,
-            items: prev.items.filter((_, i) => i !== index),
+            items: [...prev.items, { name: "", price: "", quantity: "" }],
         }));
+    };
+
+    const removeItem = (index) => {
+        setFormData((prev) => {
+            const updatedItems = prev.items.filter((_, i) => i !== index);
+            return {
+                ...prev,
+                items: updatedItems,
+                totalAmount: calculateTotalAmount(updatedItems),
+            };
+        });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // ✅ Convert all item prices & quantities to numbers
-        const processedItems = formData.items.map(item => ({
+        const processedItems = formData.items.map((item) => ({
             ...item,
-            price: Number(item.price),  // Ensure price is a number
-            quantity: Number(item.quantity) // Ensure quantity is a number
+            price: Number(item.price) || 0,
+            quantity: Number(item.quantity) || 0,
         }));
 
         const processedData = {
             ...formData,
-            totalAmount: Number(formData.totalAmount),  // Ensure totalAmount is a number
-            items: processedItems
+            totalAmount: calculateTotalAmount(processedItems),
+            items: processedItems,
         };
-
-        console.log("Submitting Data:", processedData); // Check before sending
 
         try {
             const response = await axios.post(
                 "https://backend-for-bill-1.onrender.com/bills/create",
                 processedData
             );
+
             console.log("✅ Bill created:", response.data);
+            setSuccessMessage("🎉 Bill Successfully Created!"); // ✅ Show success message
+
+            setTimeout(() => {
+                setSuccessMessage(""); // ✅ Hide after 3 seconds
+            }, 3000);
+
+            // ✅ Reset form after submission
+            setFormData({
+                customerName: "",
+                items: [{ name: "", price: "", quantity: "" }],
+                totalAmount: 0,
+                date: "",
+                address: {
+                    houseNo: "",
+                    street: "",
+                    city: "",
+                    taluka: "",
+                    district: "",
+                    state: "",
+                },
+            });
         } catch (error) {
             console.error("❌ Error submitting form:", error.response?.data || error);
         }
     };
 
-
-
-
     return (
         <div className="bill-form-container">
             <h2>Add New Bill</h2>
-            {error && <p className="error-message">{error}</p>} {/* Display error message */}
+
+            {/* ✅ Success message */}
+            {successMessage && <p className="success-message">{successMessage}</p>}
+
             <form onSubmit={handleSubmit} className="bill-form">
                 <label>Customer Name:</label>
                 <input
@@ -156,56 +180,19 @@ const BillForm = () => {
 
                 <label>Total Amount:</label>
                 <input
-                    type="number"
-                    value={formData.totalAmount}
-                    onChange={(e) => handleChange(e, "totalAmount")}
-                    required
+                    type="text"
+                    value={`₹${formData.totalAmount}`}
+                    readOnly
+                    className="total-amount-input"
                 />
 
                 <h3>Address</h3>
-                <input
-                    type="text"
-                    placeholder="House No"
-                    value={formData.address.houseNo}
-                    onChange={(e) => handleChange(e, "houseNo", null, true)} // ✅ Added `true`
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="Street"
-                    value={formData.address.street}
-                    onChange={(e) => handleChange(e, "street", null, true)} // ✅ Added `true`
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="City"
-                    value={formData.address.city}
-                    onChange={(e) => handleChange(e, "city", null, true)} // ✅ Added `true`
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="Taluka"
-                    value={formData.address.taluka}
-                    onChange={(e) => handleChange(e, "taluka", null, true)} // ✅ Added `true`
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="District"
-                    value={formData.address.district}
-                    onChange={(e) => handleChange(e, "district", null, true)} // ✅ Added `true`
-                    required
-                />
-                <input
-                    type="text"
-                    placeholder="State"
-                    value={formData.address.state}
-                    onChange={(e) => handleChange(e, "state", null, true)} // ✅ Added `true`
-                    required
-                />
-
+                <input type="text" placeholder="House No" value={formData.address.houseNo} onChange={(e) => handleChange(e, "houseNo", null, true)} required />
+                <input type="text" placeholder="Street" value={formData.address.street} onChange={(e) => handleChange(e, "street", null, true)} required />
+                <input type="text" placeholder="City" value={formData.address.city} onChange={(e) => handleChange(e, "city", null, true)} required />
+                <input type="text" placeholder="Taluka" value={formData.address.taluka} onChange={(e) => handleChange(e, "taluka", null, true)} required />
+                <input type="text" placeholder="District" value={formData.address.district} onChange={(e) => handleChange(e, "district", null, true)} required />
+                <input type="text" placeholder="State" value={formData.address.state} onChange={(e) => handleChange(e, "state", null, true)} required />
 
                 <button type="submit" className="submit-btn">Submit</button>
             </form>
