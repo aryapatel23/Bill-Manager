@@ -4,10 +4,10 @@ import axios from "axios";
 import "./Billdetails.css"; // Import the CSS file
 
 const Invoice = () => {
-    const { billId } = useParams(); // Get billId from the URL
+    const { billId } = useParams(); 
     const [bill, setBill] = useState(null);
     const [loading, setLoading] = useState(true);
-    const navigate = useNavigate(); // For navigating back
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`https://backend-for-bill-1.onrender.com/bills/${billId}`)
@@ -22,7 +22,7 @@ const Invoice = () => {
     }, [billId]);
 
     const handlePrint = () => {
-        window.print(); // Trigger print dialog
+        window.print();
     };
 
     if (loading) return <p>Loading invoice...</p>;
@@ -30,7 +30,6 @@ const Invoice = () => {
 
     return (
         <div className="invoice-container">
-            {/* Back Button (Hidden on Print) */}
             <button className="back-button" onClick={() => navigate(-1)}>⬅ Back</button>
 
             <div className="header">
@@ -75,7 +74,6 @@ const Invoice = () => {
             <hr />
             <p className="footer">Thank you for your business!</p>
 
-            {/* Print Button (Hidden on Print) */}
             <button className="print-button" onClick={handlePrint}>
                 Print Invoice 🖨️
             </button>

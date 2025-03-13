@@ -102,33 +102,51 @@
     margin-top: 20px;
   }
   
-  .print-button:hover {
+  .print-buttonfromdetails:hover {
     background-color: #0056b3;
   }
   
   /* Print Styling */
-  @media print {
-    body {
-      margin: 0;
-      padding: 0;
-    }
-  
-    .invoice-container {
-      box-shadow: none;
-      width: 100%;
-      height: auto;
-      margin: 0;
-      padding: 0;
-    }
-  
-    .print-button {
-      display: none; /* Hide print button */
-    }
+/* Print styles for Envelope format */
+@media print {
+  @page {
+      size: 9.5in 4.125in; /* Exact Envelope #10 size */
+      margin: 0; /* Remove extra margins */
   }
-  @media print {
-    .back-button, .print-button {
-        display: none;
-    }
+
+  body {
+      margin: 0;
+      padding: 0;
+  }
+
+  .invoice-container {
+      width: 9.5in;
+      height: 4.125in;
+      padding: 5px; /* Reduce padding to fit content */
+      font-size: 10px; /* Adjust font size for better fit */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* Distribute content evenly */
+  }
+
+  .header, .details, .footer {
+      break-inside: avoid; /* Prevents content from splitting across pages */
+  }
+
+  table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+
+  th, td {
+      font-size: 9px; /* Reduce font size for tables */
+      padding: 2px;
+      text-align: left;
+  }
+
+  /* Hide buttons when printing */
+  .back-button, .print-button {
+      display: none !important;
+  }
 }
 
-  

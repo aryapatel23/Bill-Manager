@@ -156,6 +156,18 @@
 .print-button:hover {
   background-color: #0056b3; /* Darker blue on hover */
 }
+.delete-button{
+  padding: 6px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #ff2222; /* Blue color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.delete-button:hover{
+  background-color: #840000;
+}
 /* ✅ Responsive Design */
 @media (max-width: 768px) {
   /* Stack filters vertically */
@@ -185,6 +197,19 @@
     padding: 4px 8px;
     font-size: 12px;
   }
+  .delete-button{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -195,6 +220,10 @@
   }
 
   .print-button {
+    font-size: 10px;
+    padding: 5px 8px;
+  }
+  .delete-button{
     font-size: 10px;
     padding: 5px 8px;
   }

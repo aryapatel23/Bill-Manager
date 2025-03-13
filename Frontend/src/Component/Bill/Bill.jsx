@@ -267,6 +267,15 @@ const BillList = () => {
       setLoading(false);
     }
   };
+
+  const handleDelete = async (billId) => {
+    try {
+      await axios.delete(`https://backend-for-bill-1.onrender.com/bills/${billId}`);
+      setBills(bills.filter(bill => bill._id !== billId)); // Remove the deleted bill from the state
+    } catch (error) {
+      console.error("Error deleting bill:", error);
+    }
+  };
   
   const handleLogin = () => {
     if (password.trim() === CORRECT_PASSWORD) {
@@ -408,6 +417,7 @@ const BillList = () => {
                             </td>
                             <td rowSpan={bill.items.length}>
                               <button className="print-button" onClick={() => navigate(`/invoice/${bill._id}`)}>Print</button>
+                              <button className="delete-button" onClick={() => handleDelete(bill._id)}>Delete</button>
                             </td>
                           </>
                         )}
