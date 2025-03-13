@@ -1,0 +1,116 @@
+/* Base Styling */
+.product-detail-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .product-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .product-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Responsive Image */
+  .product-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Table Styling */
+  .product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow-x: auto;
+    display: block;
+  }
+  
+  .product-table th,
+  .product-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+  .product-table th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .table-row:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* ✅ RESPONSIVE DESIGN */
+  
+  /* Small devices (phones) */
+  @media (max-width: 600px) {
+    .product-title {
+      font-size: 24px;
+    }
+  
+    .product-table {
+      font-size: 14px;
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    .product-table th,
+    .product-table td {
+      padding: 8px;
+      font-size: 14px;
+    }
+  }
+  
+  /* Medium devices (tablets) */
+  @media (max-width: 900px) {
+    .product-content {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .product-image {
+      max-width: 500px;
+    }
+  
+    .product-table th,
+    .product-table td {
+      font-size: 15px;
+    }
+  }
+  
+  /* Large screens (desktops) */
+  @media (min-width: 1200px) {
+    .product-content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  
+    .product-image {
+      max-width: 600px;
+      margin-right: 20px;
+    }
+  
+    .product-description {
+      flex: 1;
+    }
+  }
+  
