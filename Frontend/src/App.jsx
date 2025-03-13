@@ -4,7 +4,7 @@ import './App.css';
 import Nevbar from './Component/Nevbar';
 import Bill from './Component/Bill/Bill';
 import BillList from './Component/BillList/BillList';
-// import Invoice from './Component/Billdetails/Billdetails'; 
+import Invoice from './Component/Billdetails/Billdetails'; 
 import BillForm from './Component/BillForm/BillForm';
 import Home from './Component/Home/Home';
 import BrowseProducts from './Component/Home/BrowseProducts/BrowseProducts';
@@ -42,7 +42,7 @@ function App() {
           <Route path="/browseproducts/samrat-grain-thresher" element={<SamratGrainThresher />} />
           <Route path="/browseproducts/samrat-ground-nut-digger" element={<SamratGroundNutDigger />} />
           <Route path="/bill" element={<Bill />} />
-          {/* <Route path="/invoice/:billId" element={<Invoice />} />  */}
+          <Route path="/invoice/:billId" element={<Invoice />} /> 
           <Route path="/billform" element={<BillForm />} />
           <Route path='/contactus' element={<ContactUs />} />
 
