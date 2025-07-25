@@ -1,13 +1,14 @@
 /* Invoice Container */
 .invoice-container {
-    width: 210mm; /* A4 Width */
-    margin: auto;
-    padding: 20mm;
-    background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    margin-top: 30px;
-  }
+  width: 210mm; /* A4 Width for on-screen view */
+  margin: auto;
+  padding: 20mm;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  margin-top: 30px;
+  border-radius: 6px;
+}
   
   .back-button{
     background-color: #007bff;
@@ -53,6 +54,18 @@
   .details p {
     margin: 5px 0;
   }
+
+  .back-button, .print-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  transition: background 0.3s ease;
+}
   
   /* Table Styling */
   table {
@@ -90,7 +103,6 @@
   /* Print Button */
   .print-button {
     display: block;
-    width: 100%;
     padding: 10px;
     background-color: #007bff;
     color: white;
@@ -110,43 +122,44 @@
 /* Print styles for Envelope format */
 @media print {
   @page {
-      size: 9.5in 4.125in; /* Exact Envelope #10 size */
-      margin: 0; /* Remove extra margins */
+    size: 9.5in 4.125in; /* Standard #10 envelope */
+    margin: 0;
   }
 
   body {
-      margin: 0;
-      padding: 0;
+    margin: 0;
+    padding: 0;
+    background: white;
   }
 
+  /* ✂ Only keep the necessary parts for printing address */
   .invoice-container {
-      width: 9.5in;
-      height: 4.125in;
-      padding: 5px; /* Reduce padding to fit content */
-      font-size: 10px; /* Adjust font size for better fit */
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between; /* Distribute content evenly */
+    width: 9.5in;
+    height: 4.125in;
+    padding: 10mm;
+    box-shadow: none;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
-  .header, .details, .footer {
-      break-inside: avoid; /* Prevents content from splitting across pages */
+  /* 📦 Hide everything except address section when printing */
+  .header, .title, table, .total, .footer, .back-button, .print-button {
+    display: none !important;
   }
 
-  table {
-      width: 100%;
-      border-collapse: collapse;
+  /* 📬 Show ONLY the address */
+  .details {
+    font-size: 16px;
+    position: absolute;
+    top: 1.8in;   /* Adjust for vertical alignment */
+    left: 4in;    /* Adjust for horizontal alignment */
+    line-height: 1.4;
   }
 
-  th, td {
-      font-size: 9px; /* Reduce font size for tables */
-      padding: 2px;
-      text-align: left;
-  }
-
-  /* Hide buttons when printing */
-  .back-button, .print-button {
-      display: none !important;
+  .details strong {
+    font-size: 18px;
   }
 }
 

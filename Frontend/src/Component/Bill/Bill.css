@@ -1,11 +1,12 @@
-/* Container */
-
+/* 🎯 Container */
 .bill-container {
   max-width: 100%;
   padding: 16px;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9fafb;
 }
 
+/* 🔐 Password Section */
 .password-container {
   text-align: center;
   margin-top: 50px;
@@ -14,92 +15,147 @@
 .password-input {
   padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 16px;
-  width: 250px;
+  width: 260px;
   margin-top: 10px;
 }
 
 .submit-button {
-  padding: 10px 15px;
+  padding: 10px 18px;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
   margin-left: 10px;
+  transition: 0.3s ease;
 }
 
 .submit-button:hover {
   background-color: #0056b3;
 }
 
+/* 🎛 Filters & Sorting */
 .filters-container {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.sort-container {
-  margin-left: auto;
-}
-
-@media (max-width: 768px) {
-  .filters-container {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-/* Title */
-.bill-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 16px;
-  text-align: center;
-}
-
-.filters-container {
-  display: flex;
-  justify-content: space-between; /* Push sort dropdown to the right */
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 15px;
-  padding: 0 10px; /* Padding for small screens */
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 0 10px;
 }
 
-/* Filters section */
 .filters {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap; /* Wrap on small screens */
+  flex-wrap: wrap;
 }
 
-/* Sort dropdown styling */
-.sort-dropdown {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  cursor: pointer;
-  min-width: 150px; /* Ensures dropdown doesn't get too small */
-}
 .filters select {
   padding: 8px;
-  font-size: 16px;
+  font-size: 15px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  min-width: 150px; /* Ensures minimum width */
+  border-radius: 6px;
+  min-width: 150px;
+  transition: 0.2s ease;
 }
 
 .filters select:disabled {
-  background-color: #f2f2f2;
+  background-color: #f1f1f1;
   cursor: not-allowed;
+  opacity: 0.7;
 }
 
-/* Loading & No Bills Message */
+.sort-container label {
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+/* 📋 Table Styling */
+.bill-table-container {
+  background-color: white;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.bill-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.bill-table th,
+.bill-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.bill-table th {
+  background-color: #f4f6f8;
+  font-weight: bold;
+}
+
+.bill-table tr:hover {
+  background-color: #f9f9f9; /* Subtle hover effect */
+}
+
+/* 🔘 Buttons */
+.print-button-small,
+.delete-button {
+  padding: 6px 8px;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  margin-right: 4px;
+  transition: 0.3s ease;
+}
+
+.print-button-small {
+  background-color: #007bff;
+  color: white;
+}
+
+.print-button-small:hover {
+  background-color: #0056b3;
+}
+
+.delete-button {
+  background-color: #e63946;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #b0212d;
+}
+
+/* 🛑 Logout Button */
+.logout-button {
+  background-color: #ff6b6b;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-left: 10px;
+  transition: 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c92a2a;
+}
+
+/* 🔄 Loading & Empty States */
 .loading,
 .no-bills {
   text-align: center;
@@ -108,139 +164,91 @@
   color: #555;
 }
 
-/* Table Container */
-.bill-table-container {
-  background-color: white;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  overflow-x: auto; /* Enables horizontal scrolling on small screens */
-  max-width: 100%;
-}
-
-/* Table Styling */
-.bill-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-.bill-header {
-  background-color: #f4f4f4;
-}
-
-.bill-th,
-.bill-td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-  white-space: nowrap; /* Prevents text from wrapping */
-}
-
-.bill-th {
-  background-color: #f8f9fa;
-  font-weight: bold;
-}
-
-/* Button */
-.print-button {
-  padding: 6px 12px;
-  font-size: 14px;
-  cursor: pointer;
-  background-color: #007bff; /* Blue color */
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-
-.print-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-}
-.delete-button{
-  padding: 6px 10px;
-  font-size: 14px;
-  cursor: pointer;
-  background-color: #ff2222; /* Blue color */
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-.delete-button:hover{
-  background-color: #840000;
-}
-/* ✅ Responsive Design */
+/* 📱 Responsive Design */
 @media (max-width: 768px) {
-  /* Stack filters vertically */
-  .filters {
+  .filters-container {
     flex-direction: column;
-    gap: 8px;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   .filters select {
-    width: 100%; /* Full width for easier selection */
+    width: 100%;
   }
 
-  /* Make table scrollable */
-  .bill-table-container {
-    overflow-x: auto;
-  }
-
-  /* Reduce padding & font size */
-  .bill-th,
-  .bill-td {
+  .bill-table th,
+  .bill-table td {
     padding: 8px;
     font-size: 14px;
   }
 
-  /* Adjust button */
-  .print-button {
-    padding: 4px 8px;
-    font-size: 12px;
-  }
-  .delete-button{
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-    margin-top: 20px;
+  .print-button-small,
+  .delete-button {
+    font-size: 13px;
+    padding: 5px 6px;
   }
 }
 
 @media (max-width: 480px) {
-  .bill-th,
-  .bill-td {
+  .bill-table th,
+  .bill-table td {
     font-size: 12px;
     padding: 6px;
   }
 
-  .print-button {
-    font-size: 10px;
-    padding: 5px 8px;
+  .filters select {
+    font-size: 14px;
+    padding: 6px;
   }
-  .delete-button{
-    font-size: 10px;
-    padding: 5px 8px;
+
+  .print-button-small,
+  .delete-button {
+    font-size: 12px;
+    padding: 4px 5px;
   }
 }
 
-@media (max-width: 768px) {
-  .filters-container {
-    flex-direction: column;
-    align-items: flex-start; /* Align filters to the left */
-    gap: 15px;
-  }
-
-  .filters {
-    width: 100%; /* Full width filters */
-  }
-
-  .sort-dropdown {
-    align-self: flex-end; /* Keeps sort dropdown to the right */
-  }
+/* Wrapper for buttons inside Actions cell */
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* space between buttons */
 }
+
+/* Uniform button size */
+.print-button-small,
+.delete-button {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+/* Print button styling */
+.print-button-small {
+  background-color: #007bff;
+  color: white;
+}
+
+.print-button-small:hover {
+  background-color: #0056b3;
+}
+
+/* Delete button styling */
+.delete-button {
+  background-color: #e63946;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #b0212d;
+}
+

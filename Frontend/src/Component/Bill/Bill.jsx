@@ -213,12 +213,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Bill.css"; 
+import "./Bill.css";
+import { FaPrint } from "react-icons/fa6";
+import { MdDelete } from "react-icons/md";
 
 const BillList = () => {
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [password, setPassword] = useState(""); 
+  const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState("");
   const [sortOrder, setSortOrder] = useState("latest");
@@ -232,7 +234,7 @@ const BillList = () => {
   const navigate = useNavigate();
 
   // Secure Password (Move this to ENV for better security)
-  const CORRECT_PASSWORD = "avpatel2302"; 
+  const CORRECT_PASSWORD = "avpatel2302";
   const AUTO_LOGOUT_TIME = 30 * 60 * 1000; // 30 minutes in milliseconds 
 
   useEffect(() => {
@@ -276,13 +278,13 @@ const BillList = () => {
       console.error("Error deleting bill:", error);
     }
   };
-  
+
   const handleLogin = () => {
     if (password.trim() === CORRECT_PASSWORD) {
       setIsAuthenticated(true);
       localStorage.setItem("bill_access", "true");
       localStorage.setItem("login_time", Date.now().toString()); // Store login time
-      setError("");  
+      setError("");
       fetchBills();
       startAutoLogout(AUTO_LOGOUT_TIME);
     } else {
@@ -333,9 +335,9 @@ const BillList = () => {
       {!isAuthenticated ? (
         <div className="password-container">
           <h2>Enter Password to Access Bills</h2>
-          <input 
-            type="password" 
-            value={password} 
+          <input
+            type="password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="password-input"
             placeholder="Enter Password"
@@ -401,7 +403,7 @@ const BillList = () => {
                 </thead>
                 <tbody>
                   {filteredBills.map(bill => (
-                    bill.items.map((item, index) => ( 
+                    bill.items.map((item, index) => (
                       <tr key={`${bill._id}-${index}`}>
                         {index === 0 && bill.items.length > 0 && (
                           <td rowSpan={bill.items.length}>{bill.customerName}</td>
@@ -416,9 +418,24 @@ const BillList = () => {
                               {bill.address.houseNo}, {bill.address.street}, {bill.address.taluka}, {bill.address.district}, {bill.address.state}
                             </td>
                             <td rowSpan={bill.items.length}>
-                              <button className="print-button" onClick={() => navigate(`/invoice/${bill._id}`)}>Print</button>
-                              <button className="delete-button" onClick={() => handleDelete(bill._id)}>Delete</button>
+                              <div className="action-buttons">
+                                <button
+                                  className="print-button-small"
+                                  onClick={() => navigate(`/invoice/${bill._id}`)}
+                                >
+                                  <FaPrint />
+                                </button>
+
+                                <button
+                                  className="delete-button"
+                                  onClick={() => handleDelete(bill._id)}
+                                >
+                                  <MdDelete />
+                                </button>
+                              </div>
                             </td>
+
+
                           </>
                         )}
                       </tr>

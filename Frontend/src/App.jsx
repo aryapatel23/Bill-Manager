@@ -41,9 +41,15 @@ function App() {
           <Route path="/browseproducts/samrat-multi-grain-thresher" element={<SamratMultiGrainThresher />} />
           <Route path="/browseproducts/samrat-grain-thresher" element={<SamratGrainThresher />} />
           <Route path="/browseproducts/samrat-ground-nut-digger" element={<SamratGroundNutDigger />} />
+
+
+
           <Route path="/bill" element={<Bill />} />
           <Route path="/invoice/:billId" element={<Invoice />} /> 
           <Route path="/billform" element={<BillForm />} />
+          
+          
+          
           <Route path='/contactus' element={<ContactUs />} />
 
         </Routes>
