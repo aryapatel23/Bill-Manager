@@ -36,7 +36,7 @@ const Invoice = () => {
                 <img src="https://res.cloudinary.com/dzsvjyg2c/image/upload/v1741258133/amxh4fnusn45rdqzqlco.png" 
                      alt="Company Logo" className="logo" />
                 <p className="company-info">
-                    Your Company Name <br />
+                    Samrat Thresher Private Lim. <br />
                     Unjha-Siddhpur Highway <br />
                     Brahmanwada- 384 215 <br />
                     Ta. Unjha, Dist. Mehsana, Gujarat,<br />
