@@ -355,9 +355,9 @@ const BillList = () => {
         </div>
       ) : (
         <>
-          <div className="header">
-            <h2 className="bill-title">Bills</h2>
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          <div className="header flex items-center justify-between gap-3">
+            <h2 className="text-2xl font-bold hidden md:block">Bills</h2>
+            <div className="flex items-center gap-3">
               <Link
                 to="/billform"
                 className="flex items-center gap-2 text-lg font-medium text-white bg-green-600 px-4 py-1.5 rounded-lg hover:bg-green-700 transition"
@@ -368,13 +368,14 @@ const BillList = () => {
 
               <button
                 onClick={handleLogout}
-                className="logout-button bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
+                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
               >
                 Logout
               </button>
             </div>
-
           </div>
+
+
 
           {/* Sorting & Filters */}
           <div className="filters-container">
