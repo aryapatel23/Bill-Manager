@@ -44,9 +44,7 @@ const Navbar = () => {
         <Link to="/bill" className="text-lg font-medium hover:underline block md:inline" onClick={closeMenu}>
           Bill
         </Link>
-        <Link to="/billform" className="text-lg font-medium hover:underline block md:inline mt-2 md:mt-0" onClick={closeMenu}>
-          Bill Form
-        </Link>
+
       </div>
     </div>
   );

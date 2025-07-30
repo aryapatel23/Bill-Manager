@@ -211,11 +211,13 @@
 
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Bill.css";
 import { FaPrint } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import { IoMdAdd } from "react-icons/io";
+import { Plus } from "lucide-react";
 
 const BillList = () => {
   const [bills, setBills] = useState([]);
@@ -230,6 +232,12 @@ const BillList = () => {
   const [selectedState, setSelectedState] = useState("");
   const [selectedDistrict, setSelectedDistrict] = useState("");
   const [selectedTaluka, setSelectedTaluka] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
 
   const navigate = useNavigate();
 
@@ -349,7 +357,23 @@ const BillList = () => {
         <>
           <div className="header">
             <h2 className="bill-title">Bills</h2>
-            <button onClick={handleLogout} className="logout-button">Logout</button>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <Link
+                to="/billform"
+                className="flex items-center gap-2 text-lg font-medium text-white bg-green-600 px-4 py-1.5 rounded-lg hover:bg-green-700 transition"
+                onClick={closeMenu}
+              >
+                <Plus size={20} /> Bill Form
+              </Link>
+
+              <button
+                onClick={handleLogout}
+                className="logout-button bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
+              >
+                Logout
+              </button>
+            </div>
+
           </div>
 
           {/* Sorting & Filters */}
