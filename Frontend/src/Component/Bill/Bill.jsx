@@ -363,7 +363,7 @@ const BillList = () => {
                 className="flex items-center gap-2 text-lg font-medium text-white bg-green-600 px-4 py-1.5 rounded-lg hover:bg-green-700 transition"
                 onClick={closeMenu}
               >
-                <Plus size={20} /> Bill Form
+                <Plus size={20} /> Add Bill
               </Link>
 
               <button
