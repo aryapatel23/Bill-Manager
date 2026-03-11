@@ -10,7 +10,7 @@ const BillDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`https://backend-for-bill-1.onrender.com/bills/${id}`)
+    axios.get(`http://localhost:5000/bills/${id}`)
       .then(response => {
         setBill(response.data);
         setLoading(false);
