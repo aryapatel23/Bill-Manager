@@ -4,7 +4,7 @@ import './App.css';
 import Nevbar from './Component/Nevbar';
 import Bill from './Component/Bill/Bill';
 import BillList from './Component/BillList/BillList';
-import Invoice from './Component/Billdetails/Billdetails'; 
+import Invoice from './Component/Billdetails/Billdetails';
 import BillForm from './Component/BillForm/BillForm';
 import Home from './Component/Home/Home';
 import BrowseProducts from './Component/Home/BrowseProducts/BrowseProducts';
@@ -14,6 +14,8 @@ import SamratCastorThresher from './Component/Home/ProductDetail/SamratCastorThr
 import SamratMultiGrainThresher from './Component/Home/ProductDetail/SamratMultiGrainThresher/SamratMultiGrainThresher';
 import SamratGrainThresher from './Component/Home/ProductDetail/SamratGrainThresher/SamratGrainThresher';
 import SamratGroundNutDigger from './Component/Home/ProductDetail/SamratGroundNutDigger/SamratGroundNutDigger';
+import Dashboard from './Component/Dashboard/Dashboard';
+import ProductManager from './Component/ProductManager/ProductManager';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -45,11 +47,12 @@ function App() {
 
 
           <Route path="/bill" element={<Bill />} />
-          <Route path="/invoice/:billId" element={<Invoice />} /> 
+          <Route path="/invoice/:billId" element={<Invoice />} />
           <Route path="/billform" element={<BillForm />} />
-          
-          
-          
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/product-manager" element={<ProductManager />} />
+
+
           <Route path='/contactus' element={<ContactUs />} />
 
         </Routes>

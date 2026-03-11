@@ -23,6 +23,10 @@ async function startServer() {
         const billRoutes = require('./routes/bill')(db);
         app.use('/bills', billRoutes);
 
+        // Import and use product routes
+        const productRoutes = require('./routes/product')(db);
+        app.use('/products', productRoutes);
+
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
     } catch (error) {
         console.error("Error connecting to MongoDB:", error);
