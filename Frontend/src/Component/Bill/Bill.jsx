@@ -49,7 +49,7 @@ const BillList = () => {
   const fetchBills = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("https://backend-for-bill-1.onrender.com/bills/all");
+      const response = await axios.get("http://localhost:5000/bills/all");
       setBills(response.data);
     } catch (error) {
       console.error("Error fetching bills:", error);
@@ -61,7 +61,7 @@ const BillList = () => {
   const handleDelete = async (billId) => {
     if (!window.confirm("Are you sure you want to delete this bill?")) return;
     try {
-      await axios.delete(`https://backend-for-bill-1.onrender.com/bills/${billId}`);
+      await axios.delete(`http://localhost:5000/bills/${billId}`);
       setBills(bills.filter(bill => bill._id !== billId));
     } catch (error) {
       console.error("Error deleting bill:", error);
@@ -163,7 +163,8 @@ const BillList = () => {
             <div className="flex items-center gap-3 w-full md:w-auto">
               <Link
                 to="/billform"
-                className="flex-1 md:flex-none flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl shadow-lg hover:shadow-green-500/30 transition-all active:scale-95"
+                style={{ backgroundColor: '#00963F' }}
+                className="flex-1 md:flex-none flex items-center justify-center gap-2 hover:opacity-90 text-white font-bold px-6 py-3 rounded-xl shadow-lg transition-all active:scale-95"
               >
                 <Plus size={20} /> Add New Bill
               </Link>
