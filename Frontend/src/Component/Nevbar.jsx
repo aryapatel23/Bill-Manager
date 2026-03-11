@@ -17,16 +17,16 @@ const Navbar = () => {
     <div className='w-full flex items-center justify-between px-6 md:px-10 bg-white shadow-md'>
       {/* Logo */}
       <div className='flex items-center'>
-        <img 
-          src="https://res.cloudinary.com/dzsvjyg2c/image/upload/v1741258133/amxh4fnusn45rdqzqlco.png" 
-          alt="Logo" 
-          className='w-auto h-20 pt-2 pb-2' 
+        <img
+          src="https://res.cloudinary.com/dzsvjyg2c/image/upload/v1741258133/amxh4fnusn45rdqzqlco.png"
+          alt="Logo"
+          className='w-auto h-20 pt-2 pb-2'
         />
       </div>
 
       {/* Mobile Menu Toggle Button */}
-      <button 
-        className='md:hidden text-gray-700' 
+      <button
+        className='md:hidden text-gray-700'
         onClick={toggleMenu}
       >
         {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -43,6 +43,12 @@ const Navbar = () => {
         </Link>
         <Link to="/bill" className="text-lg font-medium hover:underline block md:inline" onClick={closeMenu}>
           Bill
+        </Link>
+        <Link to="/dashboard" className="text-lg font-medium hover:underline block md:inline" onClick={closeMenu}>
+          Dashboard
+        </Link>
+        <Link to="/product-manager" className="text-lg font-medium hover:underline block md:inline" onClick={closeMenu}>
+          Products
         </Link>
 
       </div>
